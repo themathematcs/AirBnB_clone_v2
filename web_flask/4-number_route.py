@@ -25,5 +25,21 @@ def cisfun(text):
     return 'C %s' % new
 
 
+@app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def pythoniscool(text):
+    """Returns a string at the /python route, with a default text
+    of 'is cool', or the expansion of <text>"""
+    new = text.replace('_', ' ')
+    return 'Python %s' % new
+
+
+@app.route('/number/<int:n>', strict_slashes=False)
+def number(n):
+    """Returns a string at the /number/<n> route,
+    only if n is an int"""
+    if type(n) == int:
+        return '%i is a number' % n
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
